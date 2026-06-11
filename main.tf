@@ -44,8 +44,7 @@ resource "aws_default_route_table" "main-route-table" {
     }
 }
 
-resource "aws_security_group" "my-app-sg" {
-    name = "myapp-sg"
+resource "aws_default_security_group" "default-sg" {
     vpc_id = aws_vpc.myapp-vpc.id 
 
     ingress {
@@ -68,7 +67,7 @@ resource "aws_security_group" "my-app-sg" {
         prefix_list_ids = []
     }
     tags = {
-        Name: "${var.env_prefix}-sg"
+        Name: "${var.env_prefix}-default-sg"
     }
 }
 
@@ -96,7 +95,7 @@ resource "aws_instance" "myapp-server" {
     instance_type = var.instance_type
 
     subnet_id = aws_subnet.myapp-subnet-1.id 
-    vpc_security_group_ids = [aws_security_group.my-app-sg.id]
+    vpc_security_group_ids = [aws_default_security_group.default-sg.id]
     availability_zone = var.avail_zone
 
     associate_public_ip_address = true
