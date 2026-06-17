@@ -15,7 +15,7 @@ variable avail_zone {
     default = "eu-central-1a"
 }
 variable my-ip {
-    default = "212.11.106.250"
+    default = "212.11.106.250/32"
 }
 variable jenkins_ip {
     default = "64.226.125.108/32"
